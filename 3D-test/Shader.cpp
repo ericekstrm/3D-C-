@@ -9,10 +9,14 @@
 Shader::Shader()
 {
     vertexID = load("test.vert", GL_VERTEX_SHADER);
-    fragmentID = load("test.frag", GL_VERTEX_SHADER);
+    fragmentID = load("test.frag", GL_FRAGMENT_SHADER);
     programID = glCreateProgram();
     glAttachShader(programID, vertexID);
     glAttachShader(programID, fragmentID);
+    glLinkProgram(programID);
+
+    glDeleteShader(vertexID);
+    glDeleteShader(fragmentID);
 }
 
 Shader::~Shader()
