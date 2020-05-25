@@ -1,5 +1,7 @@
 #include "RunState.h"
 
+#include <iostream>
+
 RunState::RunState()
 {
     glClearColor(0.2f, 0.2f, 0.5f, 0);
@@ -12,6 +14,7 @@ RunState::~RunState()
 
 void RunState::update(long delta_time)
 {
+    model_world = rotation_matrix(1, 0, 1, 0) * model_world;
 }
 
 void RunState::render() const
@@ -20,7 +23,9 @@ void RunState::render() const
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.start();
-    shader.load_projection_matrix(projection * world_view);
+    shader.load_projection_matrix(projection);
+    shader.load_camera_matrix(world_view);
+    shader.load_world_matrix(model_world);
 
     model.render();
 

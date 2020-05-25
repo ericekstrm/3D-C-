@@ -51,7 +51,7 @@ float Vector<N>::length() const
 template<int N>
 void Vector<N>::normalize()
 {
-    operator/(length());
+    operator/=(length());
 }
 
 template<int N>
@@ -120,7 +120,7 @@ Vector<N> Vector<N>::operator*(float f) const
     float tmp[N];
     for (int i = 0; i < N; i++)
     {
-        tmp[i] *= x[i] * f;
+        tmp[i] = x[i] * f;
     }
     return Vector<N> {tmp};
 }
@@ -135,7 +135,7 @@ Vector<N> Vector<N>::operator*=(float f)
 template<int N>
 Vector<N> Vector<N>::operator/(float f) const
 {
-    return operator*(1 / f);
+    return operator*(1.0 / f);
 }
 
 template<int N>
@@ -201,7 +201,7 @@ std::ostream& operator<<(std::ostream & os, Vector<N> const & rhs)
 {
     for (int i = 0; i < N; i++)
     {
-        os << rhs.x[i] << " ";
+        os << rhs[i] << " ";
     }
     return os;
 }

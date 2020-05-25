@@ -17,6 +17,8 @@ public:
     int get_programID() const;
 
     void load_projection_matrix(Matrix<4, 4> const& mat) const;
+    void load_camera_matrix(Matrix<4, 4> const& mat) const;
+    void load_world_matrix(Matrix<4, 4> const& mat) const;
 
 protected:
     void get_all_uniform_locations();
@@ -37,4 +39,6 @@ private:
     int fragmentID {};
 
     int location_projection_matrix;
+    int location_camera_matrix;
+    int location_world_matrix;
 };

@@ -2,6 +2,7 @@
 #include "Vector.h"
 
 #include <cmath>
+#include <iostream>
 
 Matrix<4, 4> frustum_projection_matrix(float near, float far, float right, float left, float top, float bottom)
 {

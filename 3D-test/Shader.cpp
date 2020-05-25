@@ -17,6 +17,8 @@ Shader::Shader()
 
     glDeleteShader(vertexID);
     glDeleteShader(fragmentID);
+
+    get_all_uniform_locations();
 }
 
 Shader::~Shader()
@@ -36,6 +38,8 @@ void Shader::stop() const
 void Shader::get_all_uniform_locations()
 {
     location_projection_matrix = get_uniform_location("projection");
+    location_camera_matrix = get_uniform_location("camera_matrix");
+    location_world_matrix = get_uniform_location("world_matrix");
 }
 
 int Shader::get_uniform_location(std::string uniform_name) const
@@ -62,6 +66,26 @@ void Shader::load_bool(int location, bool b) const
 void Shader::load_matrix(int location, Matrix<4, 4> const& matrix) const
 {
     glUniformMatrix4fv(location, 1, GL_FALSE, &matrix.m[0][0]);
+}
+
+int Shader::get_programID() const
+{
+    return programID;
+}
+
+void Shader::load_projection_matrix(Matrix<4, 4> const& mat) const
+{
+    load_matrix(location_projection_matrix, mat);
+}
+
+void Shader::load_camera_matrix(Matrix<4, 4> const & mat) const
+{
+    load_matrix(location_camera_matrix, mat);
+}
+
+void Shader::load_world_matrix(Matrix<4, 4> const & mat) const
+{
+    load_matrix(location_world_matrix, mat);
 }
 
 int Shader::load(std::string const & file_name, int type)
@@ -98,14 +122,4 @@ int Shader::load(std::string const & file_name, int type)
         std::copy(errorLog.begin(), errorLog.end(), std::ostream_iterator<GLchar> {std::cerr});
     }
     return shaderID;
-}
-
-int Shader::get_programID() const
-{
-    return programID;
-}
-
-void Shader::load_projection_matrix(Matrix<4, 4> const& mat) const
-{
-    load_matrix(location_projection_matrix, mat);
 }
