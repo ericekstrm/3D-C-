@@ -14,13 +14,14 @@ public:
     void stop() const;
 
     int get_uniform_location(std::string uniform_name) const;
+    int get_programID() const;
 
 protected:
     void loadInt(int location, int value);
     void loadFloat(int location, float value);
     void loadBool(int location, bool b);
-    void loadVector(int location, Vector vector);
-    void loadMatrix(int location, Matrix matrix);
+    //void loadVector(int location, Vector vector);
+    //void loadMatrix(int location, Matrix matrix);
 
 private:
 

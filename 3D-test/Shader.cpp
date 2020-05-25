@@ -19,6 +19,16 @@ Shader::~Shader()
 {
 }
 
+void Shader::start() const
+{
+    glUseProgram(programID);
+}
+
+void Shader::stop() const
+{
+    glUseProgram(0);
+}
+
 int Shader::load(std::string const & file_name, int type)
 {
     std::ifstream shader_source {file_name.c_str()};
@@ -53,4 +63,9 @@ int Shader::load(std::string const & file_name, int type)
         std::copy(errorLog.begin(), errorLog.end(), std::ostream_iterator<GLchar> {std::cerr});
     }
     return shaderID;
+}
+
+int Shader::get_programID() const
+{
+    return programID;
 }
