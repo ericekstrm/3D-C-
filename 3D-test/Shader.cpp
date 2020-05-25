@@ -33,6 +33,37 @@ void Shader::stop() const
     glUseProgram(0);
 }
 
+void Shader::get_all_uniform_locations()
+{
+    location_projection_matrix = get_uniform_location("projection");
+}
+
+int Shader::get_uniform_location(std::string uniform_name) const
+{
+    const GLchar* c = uniform_name.c_str();
+    return glGetUniformLocation(programID, c);
+}
+
+void Shader::load_int(int location, int value) const
+{
+    glUniform1i(location, value);
+}
+
+void Shader::load_float(int location, float value) const
+{
+    glUniform1f(location, value);
+}
+
+void Shader::load_bool(int location, bool b) const
+{
+    glUniform1i(location, b ? 1 : 0);
+}
+
+void Shader::load_matrix(int location, Matrix<4, 4> const& matrix) const
+{
+    glUniformMatrix4fv(location, 1, GL_FALSE, &matrix.m[0][0]);
+}
+
 int Shader::load(std::string const & file_name, int type)
 {
     std::ifstream shader_source {file_name.c_str()};
@@ -72,4 +103,9 @@ int Shader::load(std::string const & file_name, int type)
 int Shader::get_programID() const
 {
     return programID;
+}
+
+void Shader::load_projection_matrix(Matrix<4, 4> const& mat) const
+{
+    load_matrix(location_projection_matrix, mat);
 }

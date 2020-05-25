@@ -2,6 +2,7 @@
 
 #include "glad/glad.h"
 #include "State.h"
+#include "Model.h"
 #include "Shader.h"
 
 class RunState : public State
@@ -18,9 +19,12 @@ public:
         return "run";
     };
 private:
-
-    //code to test stuff :)
     Shader shader {};
-    unsigned int VBO, VAO, EBO;
-};
+    Model model {};
 
+    Matrix<4, 4> model_world {translation_matrix(0, 0, 0)};
+    Matrix<4, 4> world_view {look_at(Vector<3> {10, 10, 10},
+                                     Vector<3> {0, 0, 0},
+                                     Vector<3> {0, 1, 0})};
+    Matrix<4, 4> projection {frustum_projection_matrix(1, 1000, 0.5, -0.5, 0.5, -0.5)};
+};

@@ -22,6 +22,12 @@
     <Filter Include="Source Files\shader files">
       <UniqueIdentifier>{3b75e980-c6ae-4f87-8881-78b8abf4406a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{e076b253-4e59-4a3e-9f6a-568f66f15586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{d42b140b-ad2c-47cc-861b-feb5879b618d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,15 @@
     <ClCompile Include="..\..\glad\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -53,6 +68,15 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag">
@@ -60,6 +84,12 @@
     </None>
     <None Include="test.vert">
       <Filter>Source Files\shader files</Filter>
+    </None>
+    <None Include="Vector.tcc">
+      <Filter>Header Files\util</Filter>
+    </None>
+    <None Include="Matrix.tcc">
+      <Filter>Header Files\util</Filter>
     </None>
   </ItemGroup>
 </Project>
