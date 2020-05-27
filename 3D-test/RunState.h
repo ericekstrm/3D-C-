@@ -22,9 +22,12 @@ private:
     Shader shader {};
     Model model {};
 
-    Matrix<4, 4> model_world {translation_matrix(0, 0, 0)};
-    Matrix<4, 4> world_view {look_at(Vector<3> {0, 0, 10},
-                                     Vector<3> {0, 0, 0},
-                                     Vector<3> {0, 1, 0})};
-    Matrix<4, 4> projection {frustum_projection_matrix(1, 1000, 0.5, -0.5, 0.5, -0.5)};
+    float z {0};
+
+    Matrix<4, 4> model_world {rotation_matrix(40, 1.0f, 0.3f, 0.5f)};
+    //Matrix<4, 4> world_view {look_at(Vector<3> {0, 0, 0},
+    //                                 Vector<3> {0, 0, -1},
+    //                                 Vector<3> {0, 1, 0})};
+    Matrix<4, 4> world_view {translation_matrix(0,0,-3)};
+    Matrix<4, 4> projection {fov_projection_matrix(45, 1, 0.1, 100)};
 };

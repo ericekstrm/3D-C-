@@ -44,6 +44,8 @@ Matrix<row, col>::determinant() const
 }*/
 
 Matrix<4, 4> frustum_projection_matrix(float near, float far, float right, float left, float top, float bottom);
+Matrix<4, 4> fov_projection_matrix(float fovy, float aspect, float near, float far);
+
 Matrix<4, 4> look_at(Vector<3> position, Vector<3> look_at, Vector<3> up_vector);
 
 Matrix<4, 4> rotation_matrix(float angle, float x, float y, float z);

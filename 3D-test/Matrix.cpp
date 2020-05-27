@@ -20,6 +20,20 @@ Matrix<4, 4> frustum_projection_matrix(float near, float far, float right, float
     return frustum;
 }
 
+Matrix<4, 4> fov_projection_matrix(float fovy, float aspect, float near, float far)
+{
+    float const rad = fovy * 3.1415 / 180;
+    float const tanHalfFovy = tan(rad / 2);
+
+    Matrix<4, 4> result {};
+    result.m[0][0] = 1 / (aspect * tanHalfFovy);
+    result.m[1][1] = 1 / (tanHalfFovy);
+    result.m[2][2] = - (far + near) / (far - near);
+    result.m[2][3] = - 1;
+    result.m[3][2] = - (2 * far * near) / (far - near);
+    return result;
+}
+
 Matrix<4, 4> look_at(Vector<3> position, Vector<3> look_at, Vector<3> up_vector)
 {
     Vector<3> n {position - look_at};
@@ -65,6 +79,7 @@ Matrix<4, 4> rotation_matrix(float angle, float x, float y, float z)
     matrix.m[0][2] = x * z * (1 - c) + y * s;
     matrix.m[1][2] = y * z * (1 - c) - x * s;
     matrix.m[2][2] = z * z * (1 - c) + c;
+    matrix.m[3][3] = 1;
 
     return matrix;
 }
@@ -77,9 +92,9 @@ Matrix<4, 4> translation_matrix(float x, float y, float z)
     matrix.m[1][1] = 1;
     matrix.m[2][2] = 1;
     matrix.m[3][3] = 1;
-    matrix.m[0][3] = x;
-    matrix.m[1][3] = y;
-    matrix.m[2][3] = z;
+    matrix.m[3][0] = x;
+    matrix.m[3][1] = y;
+    matrix.m[3][2] = z;
 
     return matrix;
 }

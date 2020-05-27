@@ -6,6 +6,8 @@ RunState::RunState()
 {
     glClearColor(0.2f, 0.2f, 0.5f, 0);
     glDisable(GL_DEPTH_TEST);
+
+    std::cout << projection;
 }
 
 RunState::~RunState()
@@ -14,13 +16,15 @@ RunState::~RunState()
 
 void RunState::update(long delta_time)
 {
-    model_world = rotation_matrix(1, 0, 1, 0) * model_world;
+    float t {(float) glfwGetTime()};
+    model_world = rotation_matrix(t * 30, 1, 0.3, 0.5);
+    world_view = translation_matrix(0,0,z);
 }
 
 void RunState::render() const
 {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader.start();
     shader.load_projection_matrix(projection);
@@ -37,5 +41,15 @@ void RunState::check_input(GLFWwindow * window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+    {
+        z -= 0.1;
+        std::cout << "z: " << z << "\n";
+    }
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+    {
+        z += 0.1;
     }
 }

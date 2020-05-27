@@ -14,7 +14,7 @@ public:
     void render() const;
 
 private:
-    unsigned int VAO, VBO, EBO;
+    unsigned int VAO, VBO, VBOcolor, EBO;
     std::vector<unsigned int> VBOs {};
 
     float vertices[24] = {
@@ -29,6 +29,20 @@ private:
          0.5,  0.5, -0.5,
         -0.5,  0.5, -0.5
     };
+
+    float colors[24] = {
+        // front
+         0, 0, 1,
+         1, 1, 0,
+         1, 1, 1,
+         0, 1, 1,
+        // back
+        0, 0, 1,
+        0, 1, 0,
+        1, 0, 0,
+        1, 0, 1,
+    };
+
     unsigned int indices[36] = 
     {
         0, 1, 3, 3, 1, 2,
