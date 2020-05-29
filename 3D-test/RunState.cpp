@@ -4,7 +4,7 @@
 
 RunState::RunState()
 {
-    for (float i = 0; i < 10; i++)
+    for (float i = 1; i < 10; i++)
     {
         models.push_back(Model {Vector<3> {0, 0, -i * 10}});
     }

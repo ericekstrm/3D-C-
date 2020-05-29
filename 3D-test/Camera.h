@@ -22,7 +22,7 @@ private:
     Vector<3> up_vector {0, 1, 0};
 
     Vector<3> velocity {};
-    float speed = 5;
+    float speed = 20;
 
     double cursor_point_x {200};
     double cursor_point_y {200};

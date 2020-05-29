@@ -1,7 +1,9 @@
 #include "Model.h"
 
 #include <GLFW/glfw3.h>
+#include "stb_image.h"
 
+#include <string>
 #include <iostream>
 
 Model::Model()
@@ -9,12 +11,14 @@ Model::Model()
 {
     //TODO: load vertices and indices
 
+    load_texture("container.jpg");
     load_buffer_data(vertices, colors, indices);
 }
 
 Model::Model(Vector<3> const & position)
     : position {std::move(position)}
 {
+    load_texture("container.jpg");
     load_buffer_data(vertices, colors, indices);
 }
 
@@ -29,7 +33,11 @@ void Model::update(float delta_time)
 void Model::render() const
 {
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, 0);
 }
 
 Matrix4 const& Model::get_model_matrix() const
@@ -60,15 +68,44 @@ void Model::load_buffer_data(std::vector<float> const& vertices,
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * indices.size(), &indices[0], GL_STATIC_DRAW);
+    indices_count = indices.size();
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBOcolor);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * colors.size(), &colors[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+void Model::load_texture(std::string file_name)
+{
+    // load and create a texture 
+
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    //ändra dessa för att ta bort flimmer
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true); // tell stb to flip loaded texture's on the y-axis.
+    unsigned char *data = stbi_load(file_name.c_str(), &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    } else
+    {
+        std::cout << "Failed to load texture:" << file_name <<  std::endl;
+    }
+    stbi_image_free(data);
 }

@@ -7,9 +7,14 @@
 #include <iterator>
 
 Shader::Shader()
+    : Shader("test.vert", "test.frag")
 {
-    vertexID = load("test.vert", GL_VERTEX_SHADER);
-    fragmentID = load("test.frag", GL_FRAGMENT_SHADER);
+}
+
+Shader::Shader(std::string const& vertex_file, std::string const& fragment_file)
+{
+    vertexID = load(vertex_file, GL_VERTEX_SHADER);
+    fragmentID = load(fragment_file, GL_FRAGMENT_SHADER);
     programID = glCreateProgram();
     glAttachShader(programID, vertexID);
     glAttachShader(programID, fragmentID);
@@ -19,6 +24,8 @@ Shader::Shader()
     glDeleteShader(fragmentID);
 
     get_all_uniform_locations();
+
+    connect_texture_units();
 }
 
 Shader::~Shader()
@@ -37,12 +44,14 @@ void Shader::stop() const
 
 void Shader::get_all_uniform_locations()
 {
+    location_tex = get_uniform_location("tex");
+
     location_projection_matrix = get_uniform_location("projection");
     location_camera_matrix = get_uniform_location("camera_matrix");
     location_world_matrix = get_uniform_location("world_matrix");
 }
 
-int Shader::get_uniform_location(std::string uniform_name) const
+int Shader::get_uniform_location(std::string const& uniform_name) const
 {
     const GLchar* c = uniform_name.c_str();
     return glGetUniformLocation(programID, c);
@@ -86,6 +95,11 @@ void Shader::load_camera_matrix(Matrix4 const & mat) const
 void Shader::load_world_matrix(Matrix4 const & mat) const
 {
     load_matrix(location_world_matrix, mat);
+}
+
+void Shader::connect_texture_units() const
+{
+    load_int(location_tex, 0);
 }
 
 int Shader::load(std::string const & file_name, int type)

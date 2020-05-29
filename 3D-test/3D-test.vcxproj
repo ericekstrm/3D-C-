@@ -141,6 +141,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -152,10 +153,13 @@
     <ClInclude Include="RunState.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="terrain.frag" />
+    <None Include="terrain.vert" />
     <None Include="test.frag" />
     <None Include="test.vert" />
     <None Include="Vector.tcc" />

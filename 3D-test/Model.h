@@ -2,6 +2,7 @@
 
 #include "glad/glad.h"
 #include <vector>
+#include <string>
 #include "Vector.h"
 #include "Matrix.h"
 
@@ -19,12 +20,14 @@ public:
 
 protected:
     void load_buffer_data(std::vector<float> const&, std::vector<float> const&, std::vector<int> const&);
+    void load_texture(std::string file_name);
 
 private:
 
     unsigned int VAO;
     unsigned int VBO, VBOcolor, EBO;
-    //std::vector<unsigned int> VBOs {};
+    unsigned int textureID;
+    unsigned int indices_count {};
 
     Vector<3> position {};
     Vector<3> scale {1, 1, 1};
@@ -45,15 +48,15 @@ private:
 
     std::vector<float> colors = {
         // front
-         0, 0, 1,
-         1, 1, 0,
-         1, 1, 1,
-         0, 1, 1,
+         0, 0,
+         1, 0,
+         1, 1,
+         0, 1,
         // back
-        0, 0, 1,
-        0, 1, 0,
-        1, 0, 0,
-        1, 0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 1
     };
 
     std::vector<int> indices = {
