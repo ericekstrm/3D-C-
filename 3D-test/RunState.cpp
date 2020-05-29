@@ -26,12 +26,8 @@ void RunState::render() const
 
     shader.start();
     shader.load_projection_matrix(projection);
-
-    Matrix4 c {look_at(Vector<3> {-2,2,2},
-                       Vector<3> {0,0,0},
-                       Vector<3> {0,1,0})};
-    shader.load_camera_matrix(c);
-    //shader.load_camera_matrix(camera.get_camera_matrix());
+    
+    shader.load_camera_matrix(camera.get_camera_matrix());
 
     for (auto it = models.begin(); it != models.end(); it++)
     {

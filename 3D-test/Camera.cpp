@@ -46,7 +46,7 @@ void Camera::check_input(GLFWwindow* window)
 
     direction = rotation_matrix((cursor_point_x - xpos)/10, 0, 1, 0) * direction;
     Vector<3> d = cross(direction, up_vector);
-    //direction = rotation_matrix((cursor_point_y - ypos)/10, d[0], d[1], d[2]) * direction;
+    direction = rotation_matrix((cursor_point_y - ypos)/10, d[0], d[1], d[2]) * direction;
 
     glfwSetCursorPos(window, cursor_point_x, cursor_point_y);
 
@@ -54,21 +54,5 @@ void Camera::check_input(GLFWwindow* window)
 
 Matrix4 Camera::get_camera_matrix() const
 {
-    Vector<3> n {direction * -1};
-    Vector<3> u {cross(up_vector, n)};
-    u.normalize();
-    Vector<3> v {cross(n, u)};
-
-    Matrix4 rotation
-    {
-        u[0], u[1], u[2], 0,
-        v[0], v[1], v[2], 0,
-        n[0], n[1], n[2], 0,
-        0, 0, 0, 1
-    };
-    Matrix4 translation {translation_matrix(-position[0], -position[1], -position[2])};
-
-    return (rotation * translation);
-
-    //return look_at(position, position + direction, up_vector);
+    return look_at(position, position + direction, up_vector);
 }

@@ -37,6 +37,7 @@ private:
     Matrix4(float tmp[4][4]);
 };
 
+std::ostream& operator<<(std::ostream & os, Matrix4 const & rhs);
 
 Matrix4 frustum_projection_matrix(float near, float far, float right, float left, float top, float bottom);
 Matrix4 fov_projection_matrix(float fovy, float aspect, float near, float far);
