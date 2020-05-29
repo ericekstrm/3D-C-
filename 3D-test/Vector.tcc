@@ -135,7 +135,7 @@ Vector<N> Vector<N>::operator*=(float f)
 template<int N>
 Vector<N> Vector<N>::operator/(float f) const
 {
-    return operator*(1.0 / f);
+    return operator*(1.0f / f);
 }
 
 template<int N>
@@ -199,9 +199,11 @@ bool Vector<N>::operator!=(Vector<N> const & rhs) const
 template<int N>
 std::ostream& operator<<(std::ostream & os, Vector<N> const & rhs)
 {
-    for (int i = 0; i < N; i++)
+    os << "[";
+    for (int i = 0; i < N-1; i++)
     {
-        os << rhs[i] << " ";
+        os << rhs[i] << ", ";
     }
+    os << rhs[N-1] << "]";
     return os;
 }

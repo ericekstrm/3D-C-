@@ -63,9 +63,9 @@ void Shader::load_bool(int location, bool b) const
     glUniform1i(location, b ? 1 : 0);
 }
 
-void Shader::load_matrix(int location, Matrix<4, 4> const& matrix) const
+void Shader::load_matrix(int location, Matrix4 const& matrix) const
 {
-    glUniformMatrix4fv(location, 1, GL_FALSE, &matrix.m[0][0]);
+    glUniformMatrix4fv(location, 1, GL_FALSE, &matrix.transpose().m[0][0]);
 }
 
 int Shader::get_programID() const
@@ -73,17 +73,17 @@ int Shader::get_programID() const
     return programID;
 }
 
-void Shader::load_projection_matrix(Matrix<4, 4> const& mat) const
+void Shader::load_projection_matrix(Matrix4 const& mat) const
 {
     load_matrix(location_projection_matrix, mat);
 }
 
-void Shader::load_camera_matrix(Matrix<4, 4> const & mat) const
+void Shader::load_camera_matrix(Matrix4 const & mat) const
 {
     load_matrix(location_camera_matrix, mat);
 }
 
-void Shader::load_world_matrix(Matrix<4, 4> const & mat) const
+void Shader::load_world_matrix(Matrix4 const & mat) const
 {
     load_matrix(location_world_matrix, mat);
 }

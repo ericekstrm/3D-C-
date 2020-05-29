@@ -54,6 +54,12 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RunState.h">
@@ -77,6 +83,12 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files\state</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag">
@@ -86,9 +98,6 @@
       <Filter>Source Files\shader files</Filter>
     </None>
     <None Include="Vector.tcc">
-      <Filter>Header Files\util</Filter>
-    </None>
-    <None Include="Matrix.tcc">
       <Filter>Header Files\util</Filter>
     </None>
   </ItemGroup>

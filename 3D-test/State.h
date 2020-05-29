@@ -15,7 +15,7 @@ public:
 
     };
 
-    virtual void update(long delta_time) = 0;
+    virtual void update(float delta_time) = 0;
     virtual void render() const = 0;
     virtual void check_input(GLFWwindow* window) = 0;
     virtual std::string name() const = 0;

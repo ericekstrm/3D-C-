@@ -4,34 +4,43 @@
 
 RunState::RunState()
 {
-    glClearColor(0.2f, 0.2f, 0.5f, 0);
-    glDisable(GL_DEPTH_TEST);
-
-    std::cout << projection;
+    for (float i = 0; i < 10; i++)
+    {
+        models.push_back(Model {Vector<3> {0, 0, -i * 10}});
+    }
 }
 
 RunState::~RunState()
 {
 }
 
-void RunState::update(long delta_time)
+void RunState::update(float delta_time)
 {
-    float t {(float) glfwGetTime()};
-    model_world = rotation_matrix(t * 30, 1, 0.3, 0.5);
-    world_view = translation_matrix(0,0,z);
+    //model.update(delta_time);
+    camera.update(delta_time);
 }
 
 void RunState::render() const
 {
-    glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader.start();
     shader.load_projection_matrix(projection);
-    shader.load_camera_matrix(world_view);
-    shader.load_world_matrix(model_world);
 
-    model.render();
+    Matrix4 c {look_at(Vector<3> {-2,2,2},
+                       Vector<3> {0,0,0},
+                       Vector<3> {0,1,0})};
+    shader.load_camera_matrix(c);
+    //shader.load_camera_matrix(camera.get_camera_matrix());
+
+    for (auto it = models.begin(); it != models.end(); it++)
+    {
+        shader.load_world_matrix(it->get_model_matrix());
+        it->render();
+    }
+
+    shader.load_world_matrix(terrain.get_model_matrix());
+    terrain.render();
 
     shader.stop();
 }
@@ -43,13 +52,5 @@ void RunState::check_input(GLFWwindow * window)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 
-    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-    {
-        z -= 0.1;
-        std::cout << "z: " << z << "\n";
-    }
-    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-    {
-        z += 0.1;
-    }
+    camera.check_input(window);
 }

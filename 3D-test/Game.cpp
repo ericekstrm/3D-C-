@@ -1,6 +1,9 @@
 #include "Game.h"
 #include "RunState.h"
 #include <GLFW/glfw3.h>
+#include <ctime>
+#include <ratio>
+#include <chrono>
 
 Game::Game()
 {
@@ -16,11 +19,17 @@ Game::~Game()
 
 void Game::run()
 {
+    std::chrono::high_resolution_clock::time_point prev_time = std::chrono::high_resolution_clock::now();
     while (!glfwWindowShouldClose(window))
     {
         //update logic
-        long delta_time {};
+
+        std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> time_span = current_time - prev_time;
+
+        float delta_time {static_cast<float>(time_span.count() / 1000)};
         current_state->update(delta_time);
+        prev_time = current_time;
 
         //render to the screen
         current_state->render();
@@ -58,6 +67,6 @@ void Game::init_openGL()
 
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 }
