@@ -141,6 +141,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -152,12 +153,15 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="RunState.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="terrain.frag" />
     <None Include="terrain.vert" />
     <None Include="test.frag" />

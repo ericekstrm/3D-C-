@@ -174,6 +174,14 @@ Matrix4 Matrix4::transpose() const
     return Matrix4 {tmp};
 }
 
+Matrix4 Matrix4::remove_translation()
+{
+    m[0][3] = 0;
+    m[1][3] = 0;
+    m[2][3] = 0;
+    return *this;
+}
+
 Matrix4::Matrix4(float tmp[4][4])
 {
     for (int i = 0; i < 4; i++)

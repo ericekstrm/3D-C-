@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Terrain.h"
+#include "Skybox.h"
 
 class RunState : public State
 {
@@ -25,6 +26,9 @@ private:
     std::vector<Model> models {};
     Camera camera {};
     Terrain terrain {};
+
+    Shader skybox_shader {"skybox.vert", "skybox.frag"};
+    Skybox skybox {};
 
     Matrix4 projection {fov_projection_matrix(45.0f, 1.0f, 0.1f, 100.0f)};
 };

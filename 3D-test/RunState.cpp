@@ -24,6 +24,12 @@ void RunState::render() const
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    skybox_shader.start();
+    skybox_shader.load_projection_matrix(projection);
+    skybox_shader.load_camera_matrix(camera.get_camera_matrix().remove_translation());
+    skybox.render();
+    skybox_shader.stop();
+
     shader.start();
     shader.load_projection_matrix(projection);
     

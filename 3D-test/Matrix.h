@@ -30,6 +30,7 @@ public:
     Matrix4 inverse() const;
     float determinant() const;
     Matrix4 transpose() const;
+    Matrix4 remove_translation();
 
     float m[4][4];
 

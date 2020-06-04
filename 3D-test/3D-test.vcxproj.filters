@@ -63,6 +63,9 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RunState.h">
@@ -95,6 +98,9 @@
     <ClInclude Include="stb_image.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag">
@@ -110,6 +116,12 @@
       <Filter>Source Files\shader files</Filter>
     </None>
     <None Include="terrain.frag">
+      <Filter>Source Files\shader files</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>Source Files\shader files</Filter>
+    </None>
+    <None Include="skybox.vert">
       <Filter>Source Files\shader files</Filter>
     </None>
   </ItemGroup>

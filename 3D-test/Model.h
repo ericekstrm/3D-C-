@@ -14,7 +14,7 @@ public:
     ~Model();
 
     void update(float delta_time);
-    void render() const;
+    virtual void render() const;
 
     Matrix4 const & get_model_matrix() const;
 
@@ -22,12 +22,18 @@ protected:
     void load_buffer_data(std::vector<float> const&, std::vector<float> const&, std::vector<int> const&);
     void load_texture(std::string file_name);
 
-private:
+    void load_VAO();
+
+    void load_vertices_VBO(std::vector<float> const& vertices);
+    void load_textures_VBO(std::vector<float> const& texture_coords);
+    void load_indices_VBO(std::vector<int> const& indices);
 
     unsigned int VAO;
-    unsigned int VBO, VBOcolor, EBO;
+    unsigned int VBOvertices, VBOtextures, VBOindices;
     unsigned int textureID;
     unsigned int indices_count {};
+
+private:
 
     Vector<3> position {};
     Vector<3> scale {1, 1, 1};
