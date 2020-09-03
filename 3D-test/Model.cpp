@@ -40,7 +40,7 @@ void Model::render() const
     glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, 0);
 }
 
-Matrix4 const& Model::get_model_matrix() const
+Matrix4 const Model::get_model_matrix() const
 {
     Matrix4 t {translation_matrix(position[0], position[1], position[2])};
     Matrix4 s {scale_matrix(scale[0], scale[1], scale[2])};

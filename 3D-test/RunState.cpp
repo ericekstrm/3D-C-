@@ -6,7 +6,7 @@ RunState::RunState()
 {
     for (float i = 1; i < 10; i++)
     {
-        models.push_back(Model {Vector<3> {0, 0, -i * 10}});
+        models.push_back(Model {Vector<3> {0, 0, i * 10}});
     }
 }
 
@@ -32,11 +32,11 @@ void RunState::render() const
 
     shader.start();
     shader.load_projection_matrix(projection);
-    
     shader.load_camera_matrix(camera.get_camera_matrix());
 
     for (auto it = models.begin(); it != models.end(); it++)
     {
+        std::cout << it->get_model_matrix() << std::endl << std::endl << std::endl;
         shader.load_world_matrix(it->get_model_matrix());
         it->render();
     }

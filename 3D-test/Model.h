@@ -16,7 +16,7 @@ public:
     void update(float delta_time);
     virtual void render() const;
 
-    Matrix4 const & get_model_matrix() const;
+    Matrix4 const get_model_matrix() const;
 
 protected:
     void load_buffer_data(std::vector<float> const&, std::vector<float> const&, std::vector<int> const&);
