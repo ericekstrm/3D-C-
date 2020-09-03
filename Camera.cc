@@ -44,9 +44,9 @@ void Camera::check_input(GLFWwindow* window)
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
 
-    direction = rotation_matrix((cursor_point_x - xpos)/10, 0, 1, 0) * direction;
+    direction = rotation_matrix((static_cast<float>(cursor_point_x - xpos))/10, 0, 1, 0) * direction;
     Vector<3> d = cross(direction, up_vector);
-    direction = rotation_matrix((cursor_point_y - ypos)/10, d[0], d[1], d[2]) * direction;
+    direction = rotation_matrix((static_cast<float>(cursor_point_y - ypos))/10, d[0], d[1], d[2]) * direction;
 
     glfwSetCursorPos(window, cursor_point_x, cursor_point_y);
 

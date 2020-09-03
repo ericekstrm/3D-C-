@@ -6,19 +6,21 @@
 #include <string>
 #include <iostream>
 
+#include "Loader.h"
+
 Model::Model()
     : position {0, 0, 0}
 {
     //TODO: load vertices and indices
 
-    load_texture("container.jpg");
+    texture_id = load_texture("container.jpg");
     load_buffer_data(vertices, colors, indices);
 }
 
 Model::Model(Vector<3> const & position)
     : position {std::move(position)}
 {
-    load_texture("container.jpg");
+    texture_id = load_texture("container.jpg");
     load_buffer_data(vertices, colors, indices);
 }
 
@@ -35,7 +37,7 @@ void Model::render() const
     glBindVertexArray(VAO);
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
 
     glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, 0);
 }
@@ -67,34 +69,6 @@ void Model::load_buffer_data(std::vector<float> const& vertices,
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-}
-
-void Model::load_texture(std::string file_name)
-{
-    // load and create a texture 
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    //ändra dessa för att ta bort flimmer
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(file_name.c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else
-    {
-        std::cout << "Failed to load texture:" << file_name <<  std::endl;
-    }
-    stbi_image_free(data);
 }
 
 void Model::load_VAO()

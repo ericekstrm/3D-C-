@@ -20,7 +20,6 @@ public:
 
 protected:
     void load_buffer_data(std::vector<float> const&, std::vector<float> const&, std::vector<int> const&);
-    void load_texture(std::string file_name);
 
     void load_VAO();
 
@@ -30,7 +29,7 @@ protected:
 
     unsigned int VAO;
     unsigned int VBOvertices, VBOtextures, VBOindices;
-    unsigned int textureID;
+    unsigned int texture_id;
     unsigned int indices_count {};
 
 private:

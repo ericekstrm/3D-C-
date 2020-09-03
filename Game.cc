@@ -1,15 +1,18 @@
-#include "Game.h"
-#include "RunState.h"
-#include <GLFW/glfw3.h>
 #include <ctime>
 #include <ratio>
 #include <chrono>
+#include <algorithm>
+#include "Game.h"
+#include "RunState.h"
+#include "MenuState.h"
+#include "Constants.h"
 
 Game::Game()
 {
     init_openGL();
 
     all_states.push_back(std::make_unique<RunState>());
+    all_states.push_back(std::make_unique<MenuState>());
     current_state = all_states.front().get();
 }
 
@@ -47,6 +50,17 @@ void Game::run()
 void Game::update_states()
 {
     std::string new_state {current_state->update_state()};
+    if (new_state != "")
+    {
+        auto it = std::find_if(all_states.begin(), all_states.end(), [new_state] (std::unique_ptr<State> const& state)
+        {
+            return (state->name() == new_state);
+        });
+        if (it != all_states.end())
+        {
+            current_state = it->get();
+        }
+    }
 }
 
 void Game::init_openGL()
@@ -57,7 +71,7 @@ void Game::init_openGL()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_DEPTH_BITS, GL_TRUE);
 
-    window = glfwCreateWindow(640, 640, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH_a, WINDOW_HEIGHT_a, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();

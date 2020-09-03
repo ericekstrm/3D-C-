@@ -27,6 +27,6 @@ public:
         return tmp;
     }
 
-private:
+protected:
     std::string change_state {};
 };

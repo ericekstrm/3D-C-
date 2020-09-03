@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glad/glad.h"
+#include "Constants.h"
 #include "State.h"
 #include "Model.h"
 #include "Shader.h"
@@ -29,6 +30,6 @@ private:
 
     Shader skybox_shader {"skybox.vert", "skybox.frag"};
     Skybox skybox {};
-
-    Matrix4 projection {fov_projection_matrix(45.0f, 1.0f, 0.1f, 100.0f)};
+    
+    Matrix4 projection {fov_projection_matrix(45.0f, static_cast<float>(WINDOW_WIDTH_a) / WINDOW_HEIGHT_a, 0.1f, 100.0f)};
 };
