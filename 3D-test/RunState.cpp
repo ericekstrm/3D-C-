@@ -1,4 +1,5 @@
 #include "RunState.h"
+#include "Loader.h"
 
 #include <iostream>
 
@@ -8,6 +9,7 @@ RunState::RunState()
     {
         models.push_back(Model {Vector<3> {0, 0, i * 10}});
     }
+    models.push_back(Loader::load_model("barn"));
 }
 
 RunState::~RunState()
@@ -16,7 +18,10 @@ RunState::~RunState()
 
 void RunState::update(float delta_time)
 {
-    //model.update(delta_time);
+    for (auto it = models.begin(); it != models.end(); it++)
+    {
+        it->update(delta_time);
+    }
     camera.update(delta_time);
 }
 
@@ -36,7 +41,6 @@ void RunState::render() const
 
     for (auto it = models.begin(); it != models.end(); it++)
     {
-        std::cout << it->get_model_matrix() << std::endl << std::endl << std::endl;
         shader.load_world_matrix(it->get_model_matrix());
         it->render();
     }

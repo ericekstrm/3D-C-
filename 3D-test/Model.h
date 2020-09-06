@@ -1,10 +1,12 @@
 #pragma once
 
 #include "glad/glad.h"
-#include <vector>
-#include <string>
 #include "Vector.h"
 #include "Matrix.h"
+#include "OBJ_Loader.h"
+
+#include <vector>
+#include <string>
 
 class Model
 {
@@ -35,6 +37,13 @@ protected:
 
 private:
 
+    Model(std::vector<float> vertices, 
+          std::vector<float> texture_coords, 
+          std::vector<int> indices,
+          objl::Material material);
+
+    std::string file_name {};
+
     Vector<3> position {};
     Vector<3> scale {1, 1, 1};
     Vector<3> rotation {};
@@ -52,7 +61,7 @@ private:
         -0.5,  0.5, -0.5
     };
 
-    std::vector<float> colors = {
+    std::vector<float> texture_coords = {
         // front
          0, 0,
          1, 0,
@@ -73,4 +82,6 @@ private:
         3, 2, 7, 7, 2, 6,
         4, 5, 0, 0, 5, 1
     };
+
+    friend class Loader;
 };

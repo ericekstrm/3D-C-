@@ -7,19 +7,22 @@
 #include <iostream>
 
 Model::Model()
-    : position {0, 0, 0}
+    : Model {Vector<3>{0, 0, 0}}
+{
+}
+
+Model::Model(Vector<3> const & position)
+    : position {position}
 {
     //TODO: load vertices and indices
 
     load_texture("container.jpg");
-    load_buffer_data(vertices, colors, indices);
+    load_buffer_data(vertices, texture_coords, indices);
 }
 
-Model::Model(Vector<3> const & position)
-    : position {std::move(position)}
+Model::Model(std::vector<float> vertices, std::vector<float> texture_coords, std::vector<int> indices, objl::Material material)
 {
-    load_texture("container.jpg");
-    load_buffer_data(vertices, colors, indices);
+    load_buffer_data(vertices, texture_coords, indices);
 }
 
 Model::~Model()
@@ -85,11 +88,17 @@ void Model::load_texture(std::string file_name)
 
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(file_name.c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(file_name.c_str(), &width, &height, &nrChannels, STBI_rgb);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        if (nrChannels == 3)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        } else if (nrChannels == 4)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        }
+            glGenerateMipmap(GL_TEXTURE_2D);
     } else
     {
         std::cout << "Failed to load texture:" << file_name <<  std::endl;

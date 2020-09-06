@@ -62,11 +62,11 @@ private:
     };
 
     std::vector<std::string> grimmnight {
-        "objects/skybox/grimmnight_rt.tga",
-        "objects/skybox/grimmnight_lf.tga",
-        "objects/skybox/grimmnight_up.tga",
-        "objects/skybox/grimmnight_dn.tga",
-        "objects/skybox/grimmnight_bk.tga",
-        "objects/skybox/grimmnight_ft.tga"
+        "res/skybox/grimmnight_rt.tga",
+        "res/skybox/grimmnight_lf.tga",
+        "res/skybox/grimmnight_up.tga",
+        "res/skybox/grimmnight_dn.tga",
+        "res/skybox/grimmnight_bk.tga",
+        "res/skybox/grimmnight_ft.tga"
     };
 };

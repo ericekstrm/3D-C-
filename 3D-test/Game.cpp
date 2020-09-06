@@ -64,6 +64,8 @@ void Game::init_openGL()
     }
 
     glfwMakeContextCurrent(window);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
 
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 

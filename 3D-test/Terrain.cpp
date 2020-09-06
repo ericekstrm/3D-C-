@@ -21,7 +21,7 @@ void Terrain::generate_terrain()
     {
         for (int j = -terrain_resolution / 2; j < terrain_resolution / 2 + 1; j++)
         {
-            float r = 0;// ((float) rand() / RAND_MAX) / 2;
+            float r = ((float) rand() / RAND_MAX) / 2;
             vertices.push_back(terrain_size / terrain_resolution * i);
             vertices.push_back(r);
             vertices.push_back(terrain_size / terrain_resolution * j);
